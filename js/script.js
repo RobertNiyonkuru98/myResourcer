@@ -1,17 +1,28 @@
-function showMessage(message, isError = true) {
+import { searchTopic } from "./apiController.js";
+
+export function showMessage(message, isError = true) {
   const el = document.getElementById("error-message");
-  el.textContent = message;
+  const successEl = document.getElementById("success-message");
+  el.textContent = "";
+  successEl.textContent = "";
   if (isError) {
-    el.classList.remove("hidden", "successmsg");
+    el.textContent = message;
+    el.classList.remove("hidden");
+    successEl.classList.add("hidden");
+    el.classList.remove("successmsg");
     el.classList.add("errormsg");
   } else {
-    el.classList.remove("hidden", "errormsg");
-    el.classList.add("successmsg");
+    successEl.textContent = message;
+    successEl.classList.remove("hidden");
+    el.classList.add("hidden");
+    successEl.classList.remove("errormsg");
+    successEl.classList.add("successmsg");
   }
 }
 
-function hideMessage() {
+export function hideMessage() {
   document.getElementById("error-message").classList.add("hidden");
+  document.getElementById("success-message").classList.add("hidden");
 }
 
 // Rendering Functions
@@ -62,9 +73,7 @@ export function renderVideosResults(results) {
   results.forEach((video) => {
     const html = `
         <a href="${video.link}" target="_blank" class="video-link">
-            <img src="${
-              video - thumbnail
-            }" onerror="this.onerror=null; this.src='https://placehold.co/120x90/e5e7eb/7f7f7f?text=Video';" class="video-image" alt="Video Thumbnail">
+            <img src="${video.thumbnail}" onerror="this.onerror=null; this.src='https://placehold.co/120x90/e5e7eb/7f7f7f?text=Video';" class="video-image" alt="Video Thumbnail">
             <div class="video-info">
                 <p class="video-title">${video.title}</p>
                 <p class="video-source">${video.source}</p>
@@ -93,9 +102,9 @@ export function renderArxivResults(results) {
     const html = `
             <a href="${paper.link}" target="_blank" class="paper-link">
                 <p class="paper-title">${paper.title}</p>
-                <p class="paper-authors>
+                <p class="paper-authors">
                     <span class="span-authors">Authors:</span> ${paper.authors}
-                </p>"
+                </p>
                 <p class="paper-date">${paper.date}</p>
                 <p class="paper-summary">${paper.summary}</p>
             </a>
@@ -110,7 +119,8 @@ export function renderWikipediaResults(wikiResults) {
   const container = document.getElementById("wiki-results");
   container.innerHTML = "";
 
-  countSpan.textContent = `Article Summary`;
+  const summarySpan = document.getElementById("summary");
+  summarySpan.textContent = `Article Summary`;
 
   if (wikiResults.length > 0) {
     wikiResults.forEach((article) => {
@@ -161,3 +171,18 @@ export function renderGithubResults(results) {
     container.insertAdjacentHTML("beforeend", html);
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-value");
+  const searchButton = document.getElementById("searchButton");
+
+  searchInput.value = "Javascript";
+  searchTopic();
+
+  searchButton.addEventListener("click", searchTopic);
+  searchInput.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      searchTopic();
+    }
+  });
+});

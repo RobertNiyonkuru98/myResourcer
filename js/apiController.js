@@ -12,16 +12,26 @@ import {
   renderGithubResults,
   renderVideosResults,
   renderWikipediaResults,
+  showMessage,
+  hideMessage,
 } from "./script.js";
 
-async function searchTopic() {
+let currentResults = {
+  books: [],
+  videos: [],
+  wikipedia: [],
+  arxiv: [],
+  github: [],
+};
+
+export async function searchTopic() {
   const topic = document.getElementById("search-value").value.trim();
   // const loading = document.getElementById("loading-indicator");
   const resultsSection = document.getElementById("results-container");
   // const exportDiv = document.getElementById("export-container");
 
   if (!topic) {
-    showMessage("Please enter a topic to search.");
+    showMessage("Please enter a topic to search.", true);
     return;
   }
 
@@ -50,5 +60,30 @@ async function searchTopic() {
       getarxiv(topic),
       getGithub(topic),
     ]);
-  } catch (error) {}
+
+    currentResults.books = bookResults;
+    renderBooksResults(currentResults.books);
+
+    currentResults.wikipedia = wikipediaResults;
+    renderWikipediaResults(currentResults.wikipedia);
+
+    currentResults.videos = videoResults;
+    renderVideosResults(currentResults.videos);
+
+    currentResults.arxiv = arxivResults;
+    renderArxivResults(currentResults.arxiv);
+
+    currentResults.github = reposresults;
+    renderGithubResults(currentResults.github);
+
+    showMessage("Search completed successfully!", false);
+  } catch (error) {
+    console.error("An unexpected error occured during search:", error);
+    showMessage(
+      "An unexpected error occured. Check console for details.",
+      true
+    );
+  } finally {
+    resultsSection.classList.remove("hidden");
+  }
 }

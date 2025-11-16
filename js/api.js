@@ -7,14 +7,6 @@ const videos_api_target = "https://www.google.com/search?tbm=vid&q=";
 const videos_proxy_url =
   "https://corsproxy.io/?" + encodeURIComponent(videos_api_target);
 
-let currentResults = {
-  books: [],
-  videos: [],
-  wikipedia: [],
-  arxiv: [],
-  github: [],
-};
-
 // API LOGICS
 // BOOKS
 
@@ -36,7 +28,7 @@ export async function getbooks(topic) {
 
     const results = data.items.map((item) => {
       const info = item.volumeInfo;
-      const description = item.description
+      const description = info.description
         ? info.description.substring(0, 150) +
           (info.description.length > 150 ? "..." : "")
         : "No description available";
@@ -101,7 +93,7 @@ export async function getvideos(topic) {
         let source = "YouTube";
 
         const titleEl = a.closest(".y0ntm2") || a.closest(".srp");
-        if (titleE1) {
+        if (titleEl) {
           const titleSpan = titleEl.querySelector('div[role="heading"]');
           if (titleSpan) title = titleSpan.textContent.trim();
         }
