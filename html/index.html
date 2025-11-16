@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>MyResourcer</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <h1>MyResourcer <span>| Refer & Enlighten</span></h1>
+        <p>Fetch all resources for any concept</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="searching">
+        <div class="search-container">
+          <div class="search-bar">
+            <input type="text" class="search-input" id="search-value" />
+          </div>
+          <div class="searching-btn">
+            <button
+              class="search-btn"
+              id="searchButton"
+              onclick="searchTopic()"
+            >
+              Search Topic
+            </button>
+          </div>
+          <div id="error-message" class="errormsg"></div>
+        </div>
+      </section>
+
+      <section class="books">
+        <div class="books-container" id="books-container">
+          <h3>Books via Google Books</h3>
+          <span id="books-count" class="booksCount">0 Found</span>
+          <div class="fetched-book" id="book-results"></div>
+        </div>
+      </section>
+
+      <section class="wikipedia">
+        <div class="wiki-container">
+          <h3>Context & Summary via Wikipedia</h3>
+          <span id="summary" class="article-summary">Article Summary</span>
+          <div class="wiki-summary" id="wiki-results"></div>
+        </div>
+      </section>
+
+      <section class="video">
+        <h3>Relevant Videos via YouTube</h3>
+        <span class="booksCount" id="books-count">0 Found</span>
+        <div class="fetched-video" id="video-results"></div>
+      </section>
+
+      <section class="research-container">
+        <h3>Research via arXiv</h3>
+        <span class="booksCount" id="books-count">0 Found</span>
+        <div class="fetched-research" id="research-results"></div>
+      </section>
+
+      <section class="github-container">
+        <h3>Tools Repositories via Github</h3>
+        <span class="reposCount" id="repos-count">0 Found</span>
+        <div class="fetchedRepos" id="repos-results"></div>
+      </section>
+    </main>
+
+    <footer></footer>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
