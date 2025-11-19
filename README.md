@@ -1,4 +1,4 @@
-# MyResourcer 📚
+# MyResourcer ℹ️
 
 **Refer & Enlighten** - Fetch all resources for any concept in one place.
 
@@ -9,20 +9,20 @@ MyResourcer is a comprehensive educational resource aggregator that searches mul
 
 ---
 
-## ✨ Features
+## Features
 
-- 📖 **Google Books Integration** - Find relevant books with covers, authors, and descriptions
-- 🎥 **YouTube Video Search** - Get direct search links for video tutorials
-- 📄 **arXiv Research Papers** - Access academic papers sorted by recency
-- 🐙 **GitHub Repositories** - Discover open-source tools and projects
-- 📚 **Wikipedia Summaries** - Quick context and background information
-- 🎨 **Modern UI** - Clean, responsive design with custom color palette
-- ⚡ **Fast Search** - Parallel API calls for instant results
-- 🔄 **Real-time Updates** - Dynamic content rendering without page reloads
+- **Google Books Integration** - Find relevant books with covers, authors, and descriptions
+- **YouTube Video Search** - Get direct search links for video tutorials
+- **arXiv Research Papers** - Access academic papers sorted by recency
+- **GitHub Repositories** - Discover open-source tools and projects
+- **Wikipedia Summaries** - Quick context and background information
+- **Modern UI** - Clean, responsive design with custom color palette
+- **Fast Search** - Parallel API calls for instant results
+- **Real-time Updates** - Dynamic content rendering without page reloads
 
 ---
 
-## 🎨 Color Palette
+## Color Palette
 
 | Role           | Color Name        | Hex Code  |
 | -------------- | ----------------- | --------- |
@@ -34,7 +34,7 @@ MyResourcer is a comprehensive educational resource aggregator that searches mul
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -84,7 +84,7 @@ MyResourcer is a comprehensive educational resource aggregator that searches mul
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ### HTML (`index.html`)
 
@@ -128,7 +128,7 @@ Orchestration layer that coordinates API calls and UI updates.
 
 ---
 
-## 🔧 Usage
+## Usage
 
 ### Basic Search
 
@@ -164,7 +164,7 @@ console.log(repos); // Array of 5 repo objects
 
 ---
 
-## 🌐 API Integrations
+## API Integrations
 
 ### Google Books API
 
@@ -200,7 +200,7 @@ console.log(repos); // Array of 5 repo objects
 
 ---
 
-## 🎯 Features in Detail
+## Features in Detail
 
 ### Search Functionality
 
