@@ -57,18 +57,20 @@ export function renderBooksResults(results) {
 }
 
 // Videos
+// I got rate limited after testing
 export function renderVideosResults(results) {
   const container = document.getElementById("video-results");
   const countSpan = document.getElementById("videos-count");
   container.innerHTML = "";
 
-  countSpan.textContent = `${results.length} Found`;
+  // countSpan.textContent = `${results.length} Found`;
 
   if (results.length === 0) {
     container.innerHTML =
       '<p class="vid-paragraph">No relevant video found for this topic.<p>';
     return;
   }
+  countSpan.textContent = "1 Link Generated";
 
   results.forEach((video) => {
     const html = `
@@ -156,15 +158,11 @@ export function renderGithubResults(results) {
                     <a href="${repo.link}" target="_blank" class="repos-link">
                         <p class="repos-name">${repo.name}</p>
                         <p class="repos-description">${repo.description}</p>
-                        <div class="flex space-x-4 text-xs text-gray-500">
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.05 8.72a1 1 0 01.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                                ${repo.stars.toLocaleString()} Stars
-                            </span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-red-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.833l-2.756 1.18 2.756 1.18a1 1 0 11-.633 1.833l-3.32-1.423A.993.993 0 018 8.164V12a1 1 11-2 0V8.164a.993.993 0 01-.316-.386L2.951 7.217a1 1 0 11.633-1.833l2.756 1.18L9.049 4.884a1 1 0 01-.633-1.833l-3.32 1.423a.993.993 0 01-.316-.386l-2.756 1.18a1 1 0 11-.633-1.833l3.32-1.423a.993.993 0 01.316-.386l2.756-1.18a1 1 0 11.633 1.833l-2.756 1.18 2.756 1.18a1 1 0 11-.633 1.833l-3.32-1.423a.993.993 0 01-.316-.386l-2.756 1.18a1 1 0 11-.633-1.833l3.32-1.423a.993.993 0 01.316-.386l2.756-1.18a1 1 0 11.633 1.833l-2.756 1.18z" clip-rule="evenodd"></path></svg>
-                                ${repo.language}
-                            </span>
+                        <div class="repo-stats">
+                            <span class="stat-item stat-stars">⭐${repo.stars.toLocaleString()} Stars</span>
+                            <span class="stat-item stat-language">👩🏿‍💻${
+                              repo.language
+                            }</span>
                         </div>
                     </a>
                 `;

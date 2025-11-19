@@ -3,10 +3,12 @@ const arXiv_url = "https://export.arxiv.org/api/query?search_query=";
 const github_url = "https://api.github.com/search/repositories?q=";
 const wikipedia_url =
   "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*";
-const videos_api_target = "https://www.google.com/search?tbm=vid&q=";
-const videos_proxy_url =
-  "https://corsproxy.io/?" + encodeURIComponent(videos_api_target);
+// const videos_api_target = "https://www.google.com/search?tbm=vid&q=";
+// const videos_proxy_url =
+//   "https://corsproxy.io/?" + encodeURIComponent(videos_api_target);
+//  # Rate limiting is a bitch
 
+const YOUTUBE_SEARCH_URL = "https://www.youtube.com/results?search_query=";
 // API LOGICS
 // BOOKS
 
@@ -53,66 +55,83 @@ export async function getbooks(topic) {
 
 // VIDEOS
 
+// export async function getvideos(topic) {
+//   const rawApiUrl = `${videos_api_target}${encodeURIComponent(
+//     topic + " tutorial youtube"
+//   )}`;
+//   const fullUrl = `https://corsproxy.io/?${encodeURIComponent(rawApiUrl)}`;
+
+//   try {
+//     const response = await fetch(fullUrl);
+//     if (!response.ok)
+//       throw new Error(`Video API HTTP error! status-code: ${response.status}`);
+
+//     const htmlText = await response.text();
+//     const parser = new DOMParser();
+//     const doc = parser.parseFromString(htmlText, "text/html");
+
+//     const videoElements = doc.querySelectorAll(
+//       'a[href*="youtube.com/watch?v="]'
+//     );
+
+//     const results = [];
+//     const finishedLinks = new Set();
+
+//     videoElements.forEach((a) => {
+//       let link = a.href;
+//       if (link.startsWith("/url?q=")) {
+//         const urlMatch = link.match(/url\?q=(.+?)&/);
+//         if (urlMatch && urlMatch[1]) {
+//           link = decodeURIComponent(urlMatch[1]);
+//         } else {
+//           return;
+//         }
+//       }
+
+//       if (
+//         link.includes("youtube.com/watch?v=") &&
+//         results.length < 5 &&
+//         !finishedLinks.has(link)
+//       ) {
+//         let title =
+//           a.innerText.trim() || a.textContent.trim() || "Video Result";
+//         title = title.replace(/\s*.\s*Video\s*/i, "");
+//         let source = "YouTube";
+
+//         // const titleEl = a.closest(".y0ntm2") || a.closest(".srp");
+//         // if (titleEl) {
+//         //   const titleSpan = titleEl.querySelector('div[role="heading"]');
+//         //   if (titleSpan) title = titleSpan.textContent.trim();
+//         // }
+
+//         results.push({
+//           title: title,
+//           link: link,
+//           source: source,
+//           thumbnail: `https://placehold.co/120x90/e5e7eb/7f7f7f?text=Video`,
+//         });
+//         finishedLinks.add(link);
+//       }
+//     });
+
+//     return results;
+//   } catch (error) {
+//     console.error("Error fetching video data:", error);
+//     return [];
+//   }
+// }
+
 export async function getvideos(topic) {
-  const rawApiUrl = `${videos_api_target}${encodeURIComponent(
-    topic + " tutorial youtube"
-  )}`;
-  const fullUrl = `https://corsproxy.io/?${encodeURIComponent(rawApiUrl)}`;
-
-  try {
-    const response = await fetch(fullUrl);
-    if (!response.ok)
-      throw new Error(`Video API HTTP error! status-code: ${response.status}`);
-
-    const htmlText = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlText, "text/html");
-
-    const videoElements = doc.querySelectorAll('a[href*="watch?v="]');
-
-    const results = [];
-    const finishedLinks = new Set();
-
-    videoElements.forEach((a) => {
-      let link = a.href;
-      if (link.startsWith("/url?q=")) {
-        const urlMatch = link.match(/url\?q=(.+?)&/);
-        if (urlMatch && urlMatch[1]) {
-          link = decodeURIComponent(urlMatch[1]);
-        } else {
-          return;
-        }
-      }
-
-      if (
-        link.includes("youtube.com/watch?v=") &&
-        results.length < 5 &&
-        !finishedLinks.has(link)
-      ) {
-        let title = a.innerText.trim() || "Video Result";
-        let source = "YouTube";
-
-        const titleEl = a.closest(".y0ntm2") || a.closest(".srp");
-        if (titleEl) {
-          const titleSpan = titleEl.querySelector('div[role="heading"]');
-          if (titleSpan) title = titleSpan.textContent.trim();
-        }
-
-        results.push({
-          title: title,
-          link: link,
-          source: source,
-          thumbnail: `https://placehold.co/120x90/e5e7eb/7f7f7f?text=Video`,
-        });
-        finishedLinks.add(link);
-      }
-    });
-
-    return results;
-  } catch (error) {
-    console.error("Error fetching video data:", error);
-    return [];
-  }
+  const searchTopic = topic + " tutorial";
+  const searchLink = `${YOUTUBE_SEARCH_URL}${encodeURIComponent(searchTopic)}`; // Since this is now a static construction, we return a resolved promise-like structure. // We also include a search keyword like "tutorial" to refine the user's initial search.
+  return [
+    {
+      title: `Search YouTube for: "${searchTopic}"`,
+      link: searchLink,
+      source: "YouTube Search Page",
+      thumbnail: "https://placehold.co/120x90/ff0000/ffffff?text=YouTube",
+    },
+  ];
 }
 
 // arXiv
